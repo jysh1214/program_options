@@ -1,0 +1,8 @@
+SET(SRCS sample.cpp)
+
+SET(INCS ${PROJECT_SOURCE_DIR}/lib)
+SET(LIBS program_options)
+
+INCLUDE_DIRECTORIES(${INCS})
+ADD_EXECUTABLE(ProgramOptionsCmd ${SRCS})
+TARGET_LINK_LIBRARIES(ProgramOptionsCmd ${LIBS})
