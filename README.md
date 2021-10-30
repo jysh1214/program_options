@@ -1,5 +1,15 @@
-#include <program_options.h>
-#include <string>
+# Program Options
+
+Simple command line options parser based on std string.
+
+## Build with CMake
+```cmake
+target_link_libraries(<PROJECT> program_options)
+```
+
+## Usage
+```cpp
+#include <program_options>
 
 int main(int argc, char** argv)
 {
@@ -7,7 +17,8 @@ int main(int argc, char** argv)
     options.registerOption("--input", "input path");
     options.registerOption("--output", "input path");
     options.registerOption("--filename", "output filename; default: output", "output");
-    options.registerOption("--mode", "program mode, it should be 1 or 2; default: 1", "1", {"1", "2"});
+    options.registerOption("--mode", "program mode, it should be 1 or 2; default: 1", 
+        "1", {"1", "2"});
     options.registerOption("--score", "program score; default: 1.0", "1.0");
     options.read(argc, argv);
 
@@ -19,3 +30,4 @@ int main(int argc, char** argv)
 
     return 0;
 }
+```

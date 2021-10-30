@@ -14,8 +14,8 @@ void ProgramOptions::read(int argc, char** argv)
 {
     m_programName = argv[0];
     for (int i = 0; i < argc; ++i) {
-		m_inputOptions.push_back(argv[i]);
-	}
+        m_inputOptions.push_back(argv[i]);
+    }
 
     // check help option
     if (optionsExist("--help")) {
@@ -76,7 +76,7 @@ std::string ProgramOptions::parse(std::string target)
     // missing option
     if (result == "" && option.quiet == "") {
         std::cout << "Missing Option: " << option.name << std::endl;
-        std::cout << "See 'BatteryTagImageCreator --help'" << std::endl;
+        printf("See '%s --help' \n", m_programName.c_str());
         exit(-1);
     }
 
