@@ -49,3 +49,13 @@ cmake -G "Unix Makefiles" \
   . && \
 cmake --build ./build -j 4 && \
 ./build/test/UnitTests
+
+rm -rf build && \
+cmake -G "Unix Makefiles" \
+  -B build \
+  -D CMAKE_CXX_COMPILER=clang++-16 \
+  -D CMAKE_CXX_STANDARD=17 \
+  -D CMAKE_BUILD_TYPE=Debug \
+  . && \
+cmake --build ./build -j 4 && \
+./build/test/UnitTests

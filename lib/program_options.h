@@ -18,12 +18,12 @@ public:
     FLOAT,
   };
 
-  struct BaseInfo {};
+  struct BaseInfo {
+    void *quiet = nullptr;
+  };
 
   template <typename T> struct OptionInfo : BaseInfo {
     using CheckFunc = bool (*)(const T);
-
-    T *quiet;
     CheckFunc check_func;
   };
 
@@ -60,6 +60,7 @@ public:
   void show_help(std::string app_name);
 
 private:
+  bool find_help;
   std::string help_option;
   std::unordered_map<std::string, RegistOption *> option_register;
   std::unordered_map<std::string, std::string> option_value;
