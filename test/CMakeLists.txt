@@ -19,7 +19,3 @@ add_executable(UnitTests unit_tests.cpp)
 target_link_libraries(UnitTests ${LIBRARIES})
 
 gtest_discover_tests(UnitTests)
-# add_test(
-#   NAME GUnitTests
-#   COMMAND $<TARGET_FILE:UnitTests> 
-# )

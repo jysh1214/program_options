@@ -18,25 +18,28 @@ public:
     FLOAT,
   };
 
-  struct BaseInfo {
+  struct OptionBaseDataTypeInfo {
+    virtual ~OptionBaseDataTypeInfo(){};
     void *quiet = nullptr;
   };
 
-  template <typename T> struct OptionInfo : BaseInfo {
+  template <typename T> struct OptionDataTypeInfo : OptionBaseDataTypeInfo {
+    ~OptionDataTypeInfo() { free(quiet); }
     using CheckFunc = bool (*)(const T);
-    CheckFunc check_func;
+    CheckFunc check_func = nullptr;
   };
 
-  struct RegistOption {
-    RegistOption(const std::string &_name, const std::string &_desc,
-                 const DataType _type)
+  struct RegisterOption {
+    RegisterOption(const std::string &_name, const std::string &_desc,
+                   const DataType _type)
         : name(_name), desc(_desc), type(_type) {}
-    ~RegistOption() {}
+    ~RegisterOption() {}
 
-    BaseInfo *info;
+    OptionBaseDataTypeInfo *info = nullptr;
     std::string name;
     std::string desc;
     DataType type;
+    std::string value;
   };
 
   template <typename T>
@@ -56,14 +59,15 @@ public:
   void set_help(std::string _help_option);
 
   void read(const int argc, const char **argv);
-  template <typename T> T get(const std::string &name);
+
+  template <typename T> T get(std::string name);
+
   void show_help(std::string app_name);
 
 private:
   bool find_help;
   std::string help_option;
-  std::unordered_map<std::string, RegistOption *> option_register;
-  std::unordered_map<std::string, std::string> option_value;
+  std::unordered_map<std::string, RegisterOption *> options;
 
   friend struct RegisterOptionImpl;
 };
